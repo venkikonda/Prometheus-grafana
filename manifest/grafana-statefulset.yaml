@@ -94,7 +94,7 @@ spec:
   - metadata:
       name: grafana-data
     spec:
-      storageClassName: standard
+      storageClassName: ${STORAGE_CLASS}
       accessModes:
         - ReadWriteOnce
       resources:
