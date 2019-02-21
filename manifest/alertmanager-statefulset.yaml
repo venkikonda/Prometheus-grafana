@@ -57,13 +57,13 @@ spec:
             - name: alertmanager-data
               mountPath: "/data"
               subPath: ""
-          resources:
-            limits:
-              cpu: 10m
-              memory: 50Mi
-            requests:
-              cpu: 10m
-              memory: 50Mi
+          #resources:
+            #limits:
+              #cpu: 10m
+              #memory: 50Mi
+            #requests:
+              #cpu: 10m
+              #memory: 50Mi
       volumes:
         - name: config-volume
           configMap:
@@ -82,7 +82,7 @@ spec:
   - metadata:
       name: alertmanager-data
     spec:
-      storageClassName: standard
+      storageClassName: ${STORAGE_CLASS}
       accessModes:
         - ReadWriteOnce
       resources:

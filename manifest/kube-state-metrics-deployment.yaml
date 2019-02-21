@@ -35,13 +35,13 @@ spec:
           timeoutSeconds: 5
       - name: addon-resizer
         image: k8s.gcr.io/addon-resizer:1.7
-        resources:
-          limits:
-            cpu: 100m
-            memory: 30Mi
-          requests:
-            cpu: 100m
-            memory: 30Mi
+        #resources:
+          #limits:
+            #cpu: 100m
+            #memory: 30Mi
+          #requests:
+            #cpu: 100m
+            #memory: 30Mi
         env:
           - name: MY_POD_NAME
             valueFrom:

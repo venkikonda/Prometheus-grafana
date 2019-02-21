@@ -70,13 +70,13 @@ spec:
             timeoutSeconds: 30
             failureThreshold: 10
             periodSeconds: 10
-          resources:
-            limits:
-              cpu: 50m
-              memory: 100Mi
-            requests:
-              cpu: 50m
-              memory: 100Mi
+          #resources:
+            #limits:
+              #cpu: 50m
+              #memory: 100Mi
+            #requests:
+              #cpu: 50m
+              #memory: 100Mi
       volumes:
         - name: config
           configMap:
