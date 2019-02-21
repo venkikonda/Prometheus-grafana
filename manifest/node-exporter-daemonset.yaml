@@ -18,7 +18,7 @@ spec:
       serviceAccountName: node-exporter
       containers:
         - name: prometheus-node-exporter
-          image: gcr.io/cloud-marketplace/google/prometheus/nodeexporter:2.2
+          image: learninghub/nodeexporter:v1.0
           imagePullPolicy: Always
           args:
             - --path.procfs=/host/proc

@@ -27,7 +27,7 @@ spec:
               mountPath: "/var/lib/grafana"
       containers:
         - name: grafana
-          image: gcr.io/cloud-marketplace/google/prometheus/grafana:2.2
+          image: learninghub/grafana:v1.0
           imagePullPolicy: Always
           volumeMounts:
             - name: config

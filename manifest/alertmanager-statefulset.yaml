@@ -23,7 +23,7 @@ spec:
       serviceAccountName: alertmanager
       containers:
         - name: alertmanager
-          image: gcr.io/cloud-marketplace/google/prometheus/alertmanager:2.2
+          image: learninghub/alertmanager:v1.0
           imagePullPolicy: Always
           args:
             - --config.file=/etc/config/alertmanager.yml

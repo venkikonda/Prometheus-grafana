@@ -20,7 +20,7 @@ spec:
       serviceAccountName: kube-state-metrics
       containers:
       - name: kube-state-metrics
-        image: gcr.io/cloud-marketplace/google/prometheus/kubestatemetrics:2.2
+        image: learninghub/kubestatemetrics:v1.0
         imagePullPolicy: Always
         ports:
         - name: http-metrics

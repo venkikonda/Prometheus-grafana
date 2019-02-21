@@ -31,7 +31,7 @@ spec:
           subPath: ""
       containers:
         - name: prometheus-server
-          image: gcr.io/cloud-marketplace/google/prometheus:2.2
+          image: learninghub/prometheus:v1.0
           imagePullPolicy: "IfNotPresent"
           args:
             - --config.file=/etc/config/prometheus.yaml
