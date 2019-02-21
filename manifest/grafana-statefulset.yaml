@@ -1,0 +1,102 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  name: grafana
+  namespace: ${NAMESPACE}
+  labels: &Labels
+    k8s-app: grafana
+    app.kubernetes.io/name: prometheus
+    app.kubernetes.io/component: grafana
+spec:
+  serviceName: grafana
+  replicas: 1
+  selector:
+    matchLabels: *Labels
+  template:
+    metadata:
+      labels: *Labels
+    spec:
+      serviceAccountName: grafana
+      initContainers:
+          - name: "init-chmod-data"
+            image: busybox:latest
+            imagePullPolicy: "IfNotPresent"
+            command: ["chmod", "777", "/var/lib/grafana"]
+            volumeMounts:
+            - name: grafana-data
+              mountPath: "/var/lib/grafana"
+      containers:
+        - name: grafana
+          image: gcr.io/cloud-marketplace/google/prometheus/grafana:2.2
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/grafana/"
+            - name: dashboards
+              mountPath: "/var/lib/grafana/dashboards"
+            - name: datasources
+              mountPath: "/etc/grafana/provisioning/datasources/"
+            - name: dashboardproviders
+              mountPath: "/etc/grafana/provisioning/dashboards/"
+            - name: grafana-data
+              mountPath: "/var/lib/grafana"
+          ports:
+            - name: service
+              containerPort: 80
+              protocol: TCP
+            - name: grafana
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana
+                  key: admin-password
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+            failureThreshold: 10
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 100Mi
+      volumes:
+        - name: config
+          configMap:
+            name: grafana-ini
+        - name: datasources
+          configMap:
+            name: grafana-datasources
+        - name: dashboardproviders
+          configMap:
+            name: grafana-dashboardproviders
+        - name: dashboards
+          configMap:
+            name: dashboards
+  volumeClaimTemplates:
+  - metadata:
+      name: grafana-data
+    spec:
+      storageClassName: standard
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: "2Gi"
