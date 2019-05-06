@@ -5,7 +5,7 @@ Kubernetes Cluster Monitoring with Prometheus and Grafana
 
 ***Set varibales***
 ```
-export NAMESPACE="moitoring"
+export NAMESPACE="monitoring"
 export GRAFANA_PASSWORD="$(pwgen 12 1 | tr -d '\n' | base64)"
 export STORAGE_CLASS="" 
 ```
