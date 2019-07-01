@@ -27,7 +27,7 @@ spec:
               mountPath: "/var/lib/grafana"
       containers:
         - name: grafana
-          image: learninghub/grafana:v1.0
+          image: grafana/grafana
           imagePullPolicy: Always
           volumeMounts:
             - name: config
@@ -70,13 +70,13 @@ spec:
             timeoutSeconds: 30
             failureThreshold: 10
             periodSeconds: 10
-          #resources:
-            #limits:
-              #cpu: 50m
-              #memory: 100Mi
-            #requests:
-              #cpu: 50m
-              #memory: 100Mi
+        # resources:
+        #   limits:
+        #     cpu: 50m
+        #     memory: 100Mi
+        #   requests:
+        #     cpu: 50m
+        #     memory: 100Mi
       volumes:
         - name: config
           configMap:
@@ -94,9 +94,9 @@ spec:
   - metadata:
       name: grafana-data
     spec:
-      storageClassName: ${STORAGE_CLASS}
+    # storageClassName: ${STORAGE_CLASS}
       accessModes:
         - ReadWriteOnce
       resources:
         requests:
-          storage: "2Gi"
+          storage: "30Gi"
