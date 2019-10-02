@@ -13,8 +13,8 @@ kubectl apply -f prometheus_grafana_manifest.yaml
 
 ***Get Grafana credentials:***
 ```
-echo "Username: $(kubectl get secret grafana --namespace $NAMESPACE \
+echo "Username: $(kubectl get secret grafana --namespace prometheus \
                  --output=jsonpath='{.data.admin-user}' | base64 --decode)"
-echo "Password: $(kubectl get secret grafana --namespace $NAMESPACE \
-                      --output=jsonpath='{.data.admin-password}' | base64 --decode)"
+echo "Password: $(kubectl get secret grafana --namespace prometheus \
+                 --output=jsonpath='{.data.admin-password}' | base64 --decode)"
 ```
