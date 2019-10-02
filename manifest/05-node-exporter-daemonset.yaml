@@ -9,15 +9,13 @@ kind: DaemonSet
 metadata:
   name: node-exporter
   namespace: prometheus
-  labels:
+  labels: &Labels
     k8s-app: node-exporter
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/component: node-exporter
 spec:
   updateStrategy:
     type: OnDelete
-  selector:
-    matchLabels: *Labels
   template:
     metadata:
       labels: *Labels

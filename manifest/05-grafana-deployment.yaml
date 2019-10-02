@@ -35,8 +35,6 @@ spec:
               mountPath: "/etc/grafana/provisioning/datasources/"
             - name: dashboardproviders
               mountPath: "/etc/grafana/provisioning/dashboards/"
-            - name: grafana-data
-              mountPath: "/var/lib/grafana"
           ports:
             - name: service
               containerPort: 80

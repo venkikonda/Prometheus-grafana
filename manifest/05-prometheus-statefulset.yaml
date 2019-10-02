@@ -49,10 +49,10 @@ metadata:
     app.kubernetes.io/component: prometheus
 spec:
   serviceName: prometheus
-  replicas: 2
-  podManagementPolicy: "Parallel"
+  replicas: 1
+  podManagementPolicy: Parallel
   updateStrategy:
-    type: "RollingUpdate"
+    type: RollingUpdate
   selector:
     matchLabels: *Labels
   template:
@@ -117,3 +117,14 @@ spec:
         - name: prometheus-data
           persistentVolumeClaim:
             claimName: prometheus-pvc
+  # volumeClaimTemplates:
+  # - metadata:
+  #     name: prometheus-data
+  #     labels: *Labels
+  #   spec:
+  #     storageClassName: default
+  #     accessModes:
+  #    - ReadWriteOnce
+  #     resources:
+  #         requests:
+  #         storage: "100Gi"
