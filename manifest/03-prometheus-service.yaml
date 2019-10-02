@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: prometheus
-  namespace: ${NAMESPACE}
+  namespace: prometheus
   labels:
     k8s-app: prometheus
     app.kubernetes.io/name: prometheus

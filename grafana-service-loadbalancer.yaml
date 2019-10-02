@@ -5,7 +5,8 @@ metadata:
     app.kubernetes.io/component: grafana
     app.kubernetes.io/name: prometheus
     k8s-app: grafana
-  name: grafana-lb
+  name: grafana-service-loadbalancer
+  namespace: prometheus
 spec:
   ports:
   - name: http

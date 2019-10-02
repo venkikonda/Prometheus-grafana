@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-datasources
-  namespace: ${NAMESPACE}
+  namespace: prometheus
   labels:
     app.kubernetes.io/name: prometheus
 data:

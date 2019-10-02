@@ -1,14 +1,19 @@
-apiVersion: apps/v1beta2
-kind: StatefulSet
+apiVersion: v1
+kind: ServiceAccount
 metadata:
   name: grafana
-  namespace: ${NAMESPACE}
+  namespace: prometheus
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: prometheus
   labels: &Labels
     k8s-app: grafana
     app.kubernetes.io/name: prometheus
     app.kubernetes.io/component: grafana
 spec:
-  serviceName: grafana
   replicas: 1
   selector:
     matchLabels: *Labels
@@ -17,14 +22,6 @@ spec:
       labels: *Labels
     spec:
       serviceAccountName: grafana
-      initContainers:
-          - name: "init-chmod-data"
-            image: busybox:latest
-            imagePullPolicy: "IfNotPresent"
-            command: ["chmod", "777", "/var/lib/grafana"]
-            volumeMounts:
-            - name: grafana-data
-              mountPath: "/var/lib/grafana"
       containers:
         - name: grafana
           image: grafana/grafana
@@ -62,6 +59,10 @@ spec:
             httpGet:
               path: /api/health
               port: 3000
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+            failureThreshold: 10
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /api/health
@@ -70,13 +71,7 @@ spec:
             timeoutSeconds: 30
             failureThreshold: 10
             periodSeconds: 10
-        # resources:
-        #   limits:
-        #     cpu: 50m
-        #     memory: 100Mi
-        #   requests:
-        #     cpu: 50m
-        #     memory: 100Mi
+          resources: {}
       volumes:
         - name: config
           configMap:
@@ -90,13 +85,3 @@ spec:
         - name: dashboards
           configMap:
             name: dashboards
-  volumeClaimTemplates:
-  - metadata:
-      name: grafana-data
-    spec:
-    # storageClassName: ${STORAGE_CLASS}
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: "30Gi"
