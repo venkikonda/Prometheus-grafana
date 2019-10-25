@@ -2,6 +2,10 @@
 
 Fully fucntional monitoring solution for Kubernetes cluster.
 
+<img src="https://raw.githubusercontent.com/srinisbook/images/master/Prometheus-grafana.png"
+     alt="Prometheus and Grafana Architecture"
+     style="float: left; margin-right: 10px;" />
+
 ***Create a single manifest file***
 ```
 awk 'FNR==1 {print "---"}{print}' manifests/* > "prometheus_grafana_manifest.yaml"
