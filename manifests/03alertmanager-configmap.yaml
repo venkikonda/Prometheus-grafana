@@ -10,25 +10,24 @@ data:
   alertmanager.yml: |
     global:
       resolve_timeout: 5m
-  #   slack_api_url: '<slack_webhook_url>'
+      #slack_api_url: '<slack_webhook_url>'
     receivers:
     - name: default-receiver
+    #- name: email_config
+    #  email_configs:
+    #  - to: '<to_address>'
+    #    from: '<from_address>'
+    #    smarthost: '<smtp_host:port>'
+    #    auth_username: '<smtp_username>'
+    #    auth_password: '<smtp_password>'
   
-  # - name: email_config
-  #   email_configs:
-  #   - to: '<to_address>'
-  #     from: '<from_address>'
-  #     smarthost: '<smtp_host:port>'
-  #     auth_username: '<smtp_username>'
-  #     auth_password: '<smtp_password>'
-  
-  # - name: slack-notifications
-  #   slack_configs:
-  #   - channel: '#alerts'
+    #- name: slack-notifications
+    #  slack_configs:
+    #  - channel: '#alerts'
 
-  # - name: webhook
-  #   webhook_configs:
-  #   - url: '<webhook_url>'  
+    #- name: webhook
+    #  webhook_configs:
+    #  - url: '<webhook_url>'  
     
     route:
       group_by:

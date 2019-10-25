@@ -76,8 +76,7 @@ spec:
           args:
             - --config.file=/etc/config/prometheus.yaml
             - --storage.tsdb.path=/prometheus
-            - --storage.tsdb.retention.time=30d
-            - --storage.tsdb.retention.size=450GB
+            - --storage.tsdb.retention=30d
             - --web.console.libraries=/etc/prometheus/console_libraries
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
