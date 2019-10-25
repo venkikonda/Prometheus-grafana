@@ -76,6 +76,8 @@ spec:
           args:
             - --config.file=/etc/config/prometheus.yaml
             - --storage.tsdb.path=/prometheus
+            - --storage.tsdb.retention.time=30d
+            - --storage.tsdb.retention.size=450GB
             - --web.console.libraries=/etc/prometheus/console_libraries
             - --web.console.templates=/etc/prometheus/consoles
             - --web.enable-lifecycle
@@ -86,13 +88,13 @@ spec:
               path: /-/ready
               port: 9090
             initialDelaySeconds: 30
-            timeoutSeconds: 30
+            timeoutSeconds: 5
           livenessProbe:
             httpGet:
               path: /-/healthy
               port: 9090
             initialDelaySeconds: 30
-            timeoutSeconds: 30
+            timeoutSeconds: 5
           resources: {}
           volumeMounts:
             - name: config-data
@@ -116,15 +118,4 @@ spec:
             name: prometheus-config
         - name: prometheus-data
           persistentVolumeClaim:
-            claimName: prometheus-pvc
-  # volumeClaimTemplates:
-  # - metadata:
-  #     name: prometheus-data
-  #     labels: *Labels
-  #   spec:
-  #     storageClassName: default
-  #     accessModes:
-  #    - ReadWriteOnce
-  #     resources:
-  #         requests:
-  #         storage: "100Gi"
+            claimName: prometheus-data

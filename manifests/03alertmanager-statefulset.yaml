@@ -33,6 +33,7 @@ spec:
           args:
             - --config.file=/etc/config/alertmanager.yml
             - --storage.path=/alertmanager
+            - --data.retention=120h
             - --web.listen-address=:9093
             - --web.route-prefix=/
             - --mesh.listen-address=$(POD_IP):6783
@@ -60,7 +61,7 @@ spec:
               path: /#/status
               port: 9093
             initialDelaySeconds: 30
-            timeoutSeconds: 30
+            timeoutSeconds: 10
           volumeMounts:
             - name: config-volume
               mountPath: /etc/config
@@ -85,15 +86,3 @@ spec:
         - name: alertmanager-data
           persistentVolumeClaim:
             claimName: alertmanager-pvc
-  # volumeClaimTemplates:
-  # - metadata:
-  #     name: alertmanager-data
-  #     labels: *Labels
-  #   spec:
-  #     storageClassName: default
-  #     accessModes:
-  #    - ReadWriteOnce
-  #     resources:
-  #         requests:
-  #         storage: "100Gi"
-      

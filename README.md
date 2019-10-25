@@ -4,7 +4,7 @@ Fully fucntional monitoring solution for Kubernetes cluster.
 
 ***Create a single manifest file***
 ```
-awk 'FNR==1 {print "---"}{print}' manifest/* > "prometheus_grafana_manifest.yaml"
+awk 'FNR==1 {print "---"}{print}' manifests/* > "prometheus_grafana_manifest.yaml"
 ```
 ***Install Promenetheus-Grafana Stack***
 ````
