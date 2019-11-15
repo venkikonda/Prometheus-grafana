@@ -32,12 +32,14 @@ Encode username and password in base64 format and update them in the manifests/0
 
 $ echo "admin" | base64
 YWRtaW4K
+
 $ echo "MyStrongPassword" | base64
 TXlTdHJvbmdQYXNzd29yZAo=
 
 data:
   admin-user: YWRtaW4=
   admin-password: TXlTdHJvbmdQYXNzd29yZAo=
+  
 kubectl apply -f manifests/05grafana-credentials-secret.yaml
 
 Note: Make sure the delete the existing pod, new pod will create with updated credentials.
