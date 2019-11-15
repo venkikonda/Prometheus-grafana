@@ -49,4 +49,4 @@ Get Grafana credentials:
 echo "Username: $(kubectl get secret grafana --namespace prometheus \
                  --output=jsonpath='{.data.admin-user}' | base64 --decode)"
 echo "Password: $(kubectl get secret grafana --namespace prometheus \
-                 --output=jsonpath='{.data.admin-password}' | base64 --decode)"
+                 --output=jsonpath='{.data.admin-password}' | base64 --decode)"                 
